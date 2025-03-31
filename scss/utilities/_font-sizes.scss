@@ -1,0 +1,67 @@
+@use '../abstracts' as *;
+@use 'sass:map';
+
+// -----------------------------------------------------------------------------
+// This file contains the utility classes for font sizes.
+// -----------------------------------------------------------------------------
+
+.ff-sans {
+  font-family: $font-sans;
+}
+
+/* Turn it on if using custom properties */
+@each $key, $val in $text-list {
+  $font-size: map.get($val, 'font-size');
+  @if (map.has-key($val, 'line-height')) {
+    $line-height: map.get($val, 'line-height');
+  } @else {
+    $line-height: $line-height-base;
+  }
+  .text-#{$key} {
+    font-size: $font-size;
+    line-height: $line-height;
+  }
+}
+
+/* Font sizes display */
+@each $key, $val in $text-display {
+  .display-#{$key} {
+    font-size: $val;
+    line-height: $text-display-base;
+  }
+}
+
+/* Font weights */
+@each $key, $val in $font-weights {
+  .fw-#{$key} {
+    font-weight: $val;
+  }
+}
+
+/* Letter Spacings */
+@each $key, $val in $tracking {
+  .tracking-#{$key} {
+    letter-spacing: $val;
+  }
+}
+
+/* Line heights */
+@each $key, $val in $leading {
+  .leading-#{$key} {
+    line-height: $val;
+  }
+}
+
+/* Text-transform */
+@each $val in $text-transform {
+  .#{$val} {
+    text-transform: $val;
+  }
+}
+
+/* Text-align */
+@each $val in $text-align {
+  .text-#{$val} {
+    text-align: $val;
+  }
+}

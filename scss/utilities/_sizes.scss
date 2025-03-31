@@ -1,0 +1,184 @@
+@use 'sass:math';
+@use '../abstract' as *;
+
+// -----------------------------------------------------------------------------
+// This file contains the utility classes for sizing.
+// ------------------------
+
+/* Padding and Margin */
+$spacing: (
+  '0': (
+    'p-0': 'padding',
+    'm-0': 'margin',
+    'gap-0': 'gap',
+  ),
+  'auto': (
+    'px-auto': 'padding-inline',
+    'py-auto': 'padding-block',
+    'mx-auto': 'margin-inline',
+    'my-auto': 'margin-block',
+  ),
+  'px': 'padding-inline',
+  'py': 'padding-block',
+  'pt': 'padding-top',
+  'pb': 'padding-bottom',
+  'pl': 'padding-left',
+  'pr': 'padding-right',
+  'mx': 'margin-inline',
+  'my': 'margin-block',
+  'mt': 'margin-top',
+  'mb': 'margin-bottom',
+  'ml': 'margin-left',
+  'mr': 'margin-right',
+  'gap-x': 'column-gap',
+  'gap-y': 'row-gap',
+  'space-x': 'margin-left',
+  'space-y': 'margin-top',
+) !default;
+
+@each $key, $prop in $spacing {
+  @if ($key == '0') {
+    @each $k, $v in $prop {
+      .#{$k} {
+        #{$v}: 0;
+      }
+    }
+  } @else if ($key == 'auto') {
+    @each $k, $v in $prop {
+      .#{$k} {
+        #{$v}: auto;
+      }
+    }
+  } @else {
+    @if $key != 'space-x' and $key != 'space-y' {
+      @each $size-name, $size-value in $spacers {
+        @if ($size-name == 'spacer') {
+          .#{$key} {
+            #{$prop}: $size-value;
+          }
+        } @else {
+          .#{$key}-#{$size-name} {
+            #{$prop}: $size-value;
+          }
+        }
+      }
+    } @else {
+      @each $size-name, $size-value in $spacers {
+        @if ($size-name == 'spacer') {
+          .#{$key} {
+            & > * + * {
+              #{$prop}: $size-value;
+            }
+          }
+        } @else {
+          .#{$key}-#{$size-name} {
+            & > * + * {
+              #{$prop}: $size-value;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+
+/* Generate system spacing from 0 to 40 with a step of 0.4rem */
+/* @each $key, $prop in $spacing {
+  @if $key == '0' {
+    @each $k, $v in $prop {
+      .#{$k} {
+        #{$v}: 0;
+      }
+    }
+  } @else if $key == 'auto' {
+    @each $k, $v in $prop {
+      .#{$k} {
+        #{$v}: auto;
+      }
+    }
+  } @else {
+    @if $key != 'space-x' and $key != 'space-y' {
+      $proportion: 0.4rem;
+      @for $i from 1 through 40 {
+        .#{$key}-#{$i} {
+          #{$prop}: $proportion;
+        }
+        $proportion: $proportion + 0.4rem;
+      }
+    } @else {
+      @for $i from 1 through 40 {
+        $proportion: 0.4rem;
+        .#{$key}-#{$i} {
+          & > * + * {
+            #{$prop}: $proportion;
+          }
+        }
+        $proportion: $proportion + 0.4rem;
+      }
+    }
+  }
+} */
+
+/* Border-width */
+$borders: (
+  'border': border-width,
+  'border-x': (
+    border-left-width,
+    border-right-width,
+  ),
+  'border-y': (
+    border-top-width,
+    border-bottom-width,
+  ),
+  'border-t': border-top-width,
+  'border-b': border-bottom-width,
+  'border-l': border-left-width,
+  'border-r': border-right-width,
+);
+
+@each $key, $prop in $borders {
+  @if ($key == 'border-x' or $key == 'border-y') {
+    @each $k, $v in $borders-width {
+      @if ($k == 'default') {
+        @each $val in $prop {
+          .#{$key} {
+            $val: $v;
+          }
+        }
+      } @else {
+        @each $val in $prop {
+          .#{$key}-#{$k} {
+            $val: $v;
+          }
+        }
+      }
+    }
+  } @else {
+    @each $k, $v in $borders-width {
+      @if ($k == 'default') {
+        .#{$key} {
+          #{$prop}: $v;
+        }
+      } @else {
+        .#{$key}-#{$k} {
+          #{$prop}: $v;
+        }
+      }
+    }
+  }
+}
+
+/* Border-radius */
+@each $key, $val in $rounded-list {
+  @if ($key == 'default') {
+    .rounded {
+      border-radius: $val;
+    }
+  } @else {
+    .rounded-#{$key} {
+      border-radius: $val;
+    }
+  }
+}

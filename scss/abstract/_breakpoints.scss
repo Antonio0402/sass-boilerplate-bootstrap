@@ -1,0 +1,12 @@
+// -----------------------------------------------------------------------------
+// This file contains the breakpoint variables used throughout the project.
+// -----------------------------------------------------------------------------
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in em
+$breakpoints: (
+  small: 30em,
+  medium: 45em,
+  large: 65em,
+) !default;

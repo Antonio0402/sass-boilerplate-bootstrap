@@ -1,0 +1,98 @@
+@use '../abstract' as *;
+
+// -----------------------------------------------------------------------------
+// This file contains the utility classes for colors. It loops through the
+// $theme-colors, $grays, and $colors maps to generate classes for text and
+// background colors.
+// -----------------------------------------------------------------------------
+
+// Define the color static utility classes for black and white.
+
+.text-black {
+  color: $black;
+}
+
+.text-white {
+  color: $white;
+}
+
+.bg-black {
+  background-color: $black;
+}
+
+.bg-white {
+  background-color: $white;
+}
+
+// It generates classes for each color and shade defined in the $theme-colors map.
+
+@each $key, $val in $theme-colors {
+  .text-#{$key} {
+    color: $val;
+  }
+
+  .bg-#{$key} {
+    background-color: $val;
+  }
+
+  @for $i from 1 through 9 {
+    @if $val != #000 and $val != #fff {
+      .text-#{$key}-dark-#{$i}00 {
+        color: shade-color($val, $i * 10%);
+      }
+
+      .bg-#{$key}-dark-#{$i}00 {
+        color: shade-color($val, $i * 10%);
+      }
+
+      .text-#{$key}-light-#{$i}00 {
+        background-color: tint-color($val, $i * 10%);
+      }
+
+      .bg-#{$key}-light-#{$i}00 {
+        background-color: tint-color($val, $i * 10%);
+      }
+    }
+  }
+}
+
+// It generates classes for each gray color defined in the $grays map.
+
+@each $key, $val in $grays {
+  .text-gray-#{$key} {
+    color: $val;
+  }
+
+  .bg-gray-#{$key} {
+    background-color: $val;
+  }
+}
+
+// It generates classes for each color defined in the $colors map using for messages.
+
+@each $key, $val in $colors {
+  .text-#{$key} {
+    color: $val;
+  }
+
+  .bg-#{$key} {
+    background-color: $val;
+  }
+
+  @for $i from 1 through 9 {
+    .text-#{$key}-dark-#{$i}00 {
+      color: shade-color($val, $i * 10%);
+    }
+
+    .bg-#{$key}-dark-#{$i}00 {
+      color: shade-color($val, $i * 10%);
+    }
+    .text-#{$key}-light-#{$i}00 {
+      background-color: tint-color($val, $i * 10%);
+    }
+
+    .bg-#{$key}-light-#{$i}00 {
+      background-color: tint-color($val, $i * 10%);
+    }
+  }
+}

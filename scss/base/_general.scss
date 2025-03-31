@@ -1,0 +1,89 @@
+@use '../abstract' as *;
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+
+  @include max-sm {
+    font-size: 75%;
+  }
+
+  @include md {
+    font-size: 50%;
+  }
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+/* Set up the body */
+
+body {
+  height: 100%;
+  padding: 3rem;
+
+  @include md {
+    padding: 0;
+  }
+}
+
+/* Improve media defaults */
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Remove built-in form typography styles */
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Avoid text overflows */
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+a,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+
+::selection {
+  background-color: $primary;
+  color: $white;
+}
+
+/* Screen-reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap; /* added line */
+  border: none;
+}

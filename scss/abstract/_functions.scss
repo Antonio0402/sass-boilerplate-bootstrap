@@ -1,0 +1,74 @@
+@use 'sass:color';
+@use './colors' as *;
+
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass functions.
+// -----------------------------------------------------------------------------
+
+/// Native `url(..)` function wrapper
+/// @param {String} $base - base URL for the asset
+/// @param {String} $type - asset type folder (e.g. `fonts/`)
+/// @param {String} $path - asset path
+/// @return {Url}
+
+@function asset($base, $type, $path) {
+  @return url($base + $type + $path);
+}
+
+/// Returns URL to an image based on its path
+/// @param {String} $path - image path
+/// @param {String} $base [$base-url] - base URL
+/// @return {Url}
+/// @require $base-url
+@function image($path, $base: $base-url) {
+  @return asset($base, 'images/', $path);
+}
+
+/// Returns URL to a font based on its path
+/// @param {String} $path - font path
+/// @param {String} $base [$base-url] - base URL
+/// @return {Url}
+/// @require $base-url
+@function font($path, $base: $base-url) {
+  @return asset($base, 'fonts/', $path);
+}
+
+/// Return the value of a color from the `$colors` map
+/// @param {String} $color - color name
+/// @param {String} $shade - color shade
+/// @return {Color}
+/// @require $colors
+
+@function clr($color, $shade) {
+  @if map.has-key($colors, $color, $shade) {
+    @return map.get($colors, $color, $shade);
+  } @else {
+    @error '$colors does not have that color!';
+  }
+}
+
+@function link-color($color: $primary, $shade-percentage: 20%) {
+  @if $shade-percentage > 0 {
+    @return shift-color($color, $shade-percentage);
+  } @else {
+    @error 'The shade percentage must be greater than 0.';
+  }
+}
+
+@function tint-color($color, $weight) {
+  @return color.mix(white, $color, $weight);
+}
+
+@function shade-color($color, $weight) {
+  @return color.mix(black, $color, $weight);
+}
+
+@function shift-color($color, $weight) {
+  @return if($weight > 0, shade-color($color, $weight), tint-color($color, -1 * $weight));
+}
+
+@function light-complement($color) {
+  $complement: color.complement($color);
+  $light-complement: tint-color($color, 30%);
+  @return $light-complement;
+}

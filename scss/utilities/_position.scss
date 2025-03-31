@@ -1,0 +1,37 @@
+@use '../abstract' as *;
+
+// -----------------------------------------------------------------------------
+// This file contains the utility classes for position and display.
+// -----------------------------------------------------------------------------
+
+/* Display */
+@each $val in $display {
+  @if $val == 'none' {
+    .hidden {
+      display: $val;
+    }
+  }
+  .#{$val} {
+    display: $val;
+  }
+}
+
+/* Position */
+@each $val in $positions {
+  .#{$val} {
+    position: $val;
+  }
+}
+
+/* Box-shadow */
+@each $key, $val in $shadows {
+  @if ($key == 'default') {
+    .shadow {
+      box-shadow: $val;
+    }
+  } @else {
+    .shadow-#{$key} {
+      box-shadow: $val;
+    }
+  }
+}

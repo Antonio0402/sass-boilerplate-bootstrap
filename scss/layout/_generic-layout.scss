@@ -1,0 +1,154 @@
+@use '../abstract' as *;
+@use 'sass:math';
+@use 'sass:string';
+@use 'sass:map';
+
+$containers: (
+  'sm': 3.2rem,
+  'md': 1.6rem,
+  'lg': 4.8rem,
+  'xl': 6.4rem,
+  'xxl': 8rem,
+) !default;
+
+/* Grid */
+$grid-width: 114rem !default; // 1140px;
+$gutter-vertical: 8rem !default;
+$gutter-vertical-small: 6rem !default;
+$gutter-horizontal: 6rem !default;
+$grid-columns: 12 !default;
+
+.row {
+  display: flex;
+  flex-grow: 0;
+}
+
+/* Container */
+@each $key, $val in $breakpoints {
+  .container-#{$key} {
+    width: 100%;
+    max-width: $val;
+    padding-inline: map-get($containers, $key);
+    margin-inline: auto;
+  }
+}
+
+/* 12 columns layout */
+
+@include mq(map.get($breakpoints, 'sm')) {
+  @for $i from 1 through 4 {
+    .col-sm-#{$i} {
+      flex-grow: 0;
+      width: math.div(($i * 100%), 4);
+    }
+  }
+}
+
+@include mq(map.get($breakpoints, 'md')) {
+  @for $i from 1 through 6 {
+    .col-md-#{$i} {
+      flex-grow: 0;
+      width: math.div(($i * 100%), 6);
+    }
+  }
+}
+
+@include mq(map.get($breakpoints, 'lg')) {
+  @for $i from 1 through $grid-columns {
+    .col-lg-#{$i} {
+      flex-grow: 0;
+      width: math.div(($i * 100%), $grid-columns);
+    }
+  }
+}
+
+@include mq(map.get($breakpoints, 'xl')) {
+  @for $i from 1 through $grid-columns {
+    .col-xl-#{$i} {
+      flex-grow: 0;
+      width: math.div(($i * 100%), $grid-columns);
+    }
+  }
+}
+
+@include mq(map.get($breakpoints, 'xxl')) {
+  @for $i from 1 through $grid-columns {
+    .col-sm-#{$i} {
+      flex-grow: 0;
+      width: math.div(($i * 100%), $grid-columns);
+    }
+  }
+}
+
+/* Layout-values */
+$layout-prop: (
+  'start': 'start',
+  'end': 'end',
+  'center': 'center',
+  'between': 'space-between',
+  'around': 'space-around',
+  'evenly': 'space-evenly',
+  'baseline': 'baseline',
+  'stretch': 'stretch',
+);
+
+$layout-axis: ('justify', 'align', 'place');
+
+$layout-values: (
+  'content': (
+    'start': 'flex-start',
+    'end': 'flex-end',
+    'center': 'center',
+    'between': 'space-between',
+    'around': 'space-around',
+    'evenly': 'space-evenly',
+    'baseline': 'baseline',
+  ),
+  'items': (
+    'start': 'start',
+    'end': 'end',
+    'center': 'center',
+    'stretch': 'stretch',
+    'baseline': 'baseline',
+  ),
+  'self': (
+    'auto': 'auto',
+    'start': 'start',
+    'end': 'end',
+    'center': 'center',
+    'stretch': 'stretch',
+    'baseline': 'baseline',
+  ),
+);
+
+@each $axis in $layout-axis {
+  @each $key, $prop in $layout-values {
+    @each $k, $v in $prop {
+      @if ($k != 'baseline') {
+        @if ($axis == 'align' and $key == 'items') {
+          @if ($k == 'start' or $key == 'end') {
+            .#{$axis}-#{$key}-#{$k} {
+              #{$axis}-#{$key}: flex-#{$v};
+            }
+          }
+        } @else if($axis == 'place' and $key == 'content') {
+          @if ($k == 'start' or $key == 'end') {
+            .#{$axis}-#{$key}-#{$k} {
+              #{$axis}-#{$key}: string.slice(#{$v}, 6);
+            }
+          }
+        } @else {
+          .#{$axis}-#{$key}-#{$k} {
+            #{$axis}-#{$key}: #{$v};
+          }
+        }
+      } @else {
+        @if ($axis == 'align') {
+          .#{$axis}-#{$key}-#{$k} {
+            #{$axis}-#{$key}: #{$v};
+          }
+        }
+      }
+    }
+  }
+}

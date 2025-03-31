@@ -1,0 +1,62 @@
+@use '../abstract' as *;
+
+@mixin btn($bg-color: $gray-400, $color: $gray-900, $color-after: $white) {
+
+  &, &:link, &:visited {
+    position: relative;
+    display: inline-block;
+    padding: 1.5rem 4rem;
+    margin-inline: auto;
+    border: none;
+    border-radius: $rounded-full;
+    cursor: pointer;
+    transition: all .2s;
+    background-color: $bg-color;
+    color: $color;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    display: inline-block;
+    z-index: -1;
+    inset: 0 0 0 0;
+    border-radius: $rounded-full;
+    background-color: $color-after;
+    transition: all 0.4s;
+  }
+
+  &:hover, &:focus {
+    transform: translateY(-3px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+
+    &::after {
+        transform: scaleX(1.4) scaleY(1.6);
+        opacity: 0;
+      }
+  }
+  /* Create an effect of active button by raising the vertial dimension */
+  &:active {
+    outline: none;
+    transform: translateY(-1px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  }
+
+  &:disabled {
+    outline: 2px solid $dark;
+    background-color: $white;
+    cursor: not-allowed;
+  }
+}
+
+.btn {
+  @include btn;  
+}
+
+.btn--white {
+  @include btn($white, $gray-900)
+}
+
+.btn--blue {
+  @include btn($primary, $white, $primary);
+}

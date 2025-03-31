@@ -1,0 +1,74 @@
+/* Animations */
+@keyframes animate-fade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes move-in-left {
+  from {
+    transform: translateX(-10rem);
+    opacity: 0;
+  }
+  80% {
+    transform: translateX(1rem);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes move-in-right {
+  from {
+    transform: translateX(10rem);
+    opacity: 0;
+  }
+  80% {
+    transform: translateX(-1rem);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes move-in-bottom {
+  from {
+    transform: translateY(3rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+  
+.animate {
+  animation-duration: var(--duration, 0.5s);
+  animation-delay: var(--delay, 0);
+  animation-name: animate-fade;
+  animation-timing-function: cubic-bezier(.26, .53, .74, 1.48);
+  animation-fill-mode: var(--fill-mode, forwards);
+}
+
+/* Fade In */
+.fade {
+  animation-name: animate-fade;
+  animation-timing-function: ease;
+}
+
+.move-in-left {
+  animation-name: move-in-left;
+  animation-timing-function: ease-out;
+}
+.move-in-right {
+  animation-name: move-in-right; 
+  animation-timing-function: ease-out;
+}
+
+.move-in-bottom {
+  animation-name: move-in-bottom; 
+  animation-timing-function: ease-out;
+}
