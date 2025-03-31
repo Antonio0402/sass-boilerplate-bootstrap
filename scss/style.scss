@@ -1,14 +1,17 @@
 /* variables and functions */
-@forward 'abstract';
+@use 'abstract';
 
-/* colors and typography */  
-@forward 'base';
+/* colors and typography */
+@use 'base';
 
 /* layout */
-@forward 'layout';
+@use 'layout';
 
 /* button, card, navbar */
-@forward 'components';
+@use 'components';
 
 /* margin, padding, opacity */
-@forward 'utilities';
+@use 'utilities';
+
+/* 3rd party libraries */
+@use 'vendor';
