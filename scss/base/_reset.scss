@@ -23,21 +23,66 @@ html {
   box-sizing: inherit;
 }
 
+/* Remove built-in form typography styles */
 * {
   margin: 0;
   padding: 0;
   font: inherit;
 }
 
-/**
- * Basic styles for links
- */
-a {
-  color: $brand-color;
+/* Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Avoid text overflows */
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+a[class*='button'],
+a[class*='btn'],
+a[role='button'] {
   text-decoration: none;
+  color: inherit;
 
   @include on-event {
-    color: $text-color;
+    color: clr(primary, 400);
     text-decoration: underline;
   }
+}
+
+::selection {
+  background-color: clr(neutral, 400);
+  color: clr(neutral, 100);
+}
+
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Screen-reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap; /* added line */
+  border: none;
 }

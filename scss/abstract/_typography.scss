@@ -7,7 +7,16 @@
 
 /// Regular font family
 /// @type List
-$ff-sans: 'Lato', sans-serif !default;
+$ff-sans: 'Open sans', sans-serif !default;
+$ff-serif: 'Merriweather', serif !default;
+$ff-mono: 'Courier New', monospace !default;
+$ff-code: 'Courier New', monospace !default;
+$ff-display: 'Oswald', sans-serif !default;
+$ff-cursive: 'Dancing Script', cursive !default;
+$ff-fantasy: 'Comic Sans MS', cursive !default;
+
+$ff-base: $ff-sans !default;
+$ff-heading: $ff-serif !default;
 
 /* Fonts-size */
 $text-base: 1.6rem !default;

@@ -5,6 +5,14 @@
 // This file contains the utility classes for sizing.
 // ------------------------
 
+/* Custom utilities sizing classes picked from project design */
+.py-section {
+  padding-block: $section-padding;
+}
+.py-hero {
+  padding-block: $hero-padding;
+}
+
 /* Padding and Margin */
 $spacing: (
   '0': (

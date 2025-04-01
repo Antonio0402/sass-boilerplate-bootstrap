@@ -1,62 +1,51 @@
 @use '../abstract' as *;
-
-@mixin btn($bg-color: $gray-400, $color: $gray-900, $color-after: $white) {
-
-  &, &:link, &:visited {
-    position: relative;
-    display: inline-block;
-    padding: 1.5rem 4rem;
-    margin-inline: auto;
-    border: none;
-    border-radius: $rounded-full;
-    cursor: pointer;
-    transition: all .2s;
-    background-color: $bg-color;
-    color: $color;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    display: inline-block;
-    z-index: -1;
-    inset: 0 0 0 0;
-    border-radius: $rounded-full;
-    background-color: $color-after;
-    transition: all 0.4s;
-  }
-
-  &:hover, &:focus {
-    transform: translateY(-3px);
-    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
-
-    &::after {
-        transform: scaleX(1.4) scaleY(1.6);
-        opacity: 0;
-      }
-  }
-  /* Create an effect of active button by raising the vertial dimension */
-  &:active {
-    outline: none;
-    transform: translateY(-1px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-  }
-
-  &:disabled {
-    outline: 2px solid $dark;
-    background-color: $white;
-    cursor: not-allowed;
-  }
-}
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
 
 .btn {
-  @include btn;  
+  @include btn;
 }
 
 .btn--white {
-  @include btn($white, $gray-900)
+  @include btn($white, $gray-900);
 }
 
 .btn--blue {
   @include btn($primary, $white, $primary);
+}
+
+/* Button using exceptional approach with data-type */
+
+.button {
+  display: inline-flex;
+  cursor: pointer;
+  border: 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: $fw-700;
+  padding: 1.125em 2em;
+
+  transition: 275ms ease;
+  // --border-width: 5px;
+
+  /* Two type of buttons have the same size hence we need to deal with the border or outline of outline-button */
+  &[data-type='accent'] {
+    background-color: clr(primary, 400);
+    color: clr(neutral, 900);
+    // border: solid var(--border-width) clr(accent, 400);
+  }
+
+  &[data-type='outline'] {
+    --outline-size: 5px;
+    background: transparent;
+    outline: var(--outline-size) solid clr(neutral, 100);
+    outline-offset: calc(var(--outline-size) * -1);
+    color: clr(neutral, 100);
+  }
+
+  &:is(:hover, :focus) {
+    background-color: clr(neutral, 100);
+    color: clr(neutral, 900);
+  }
 }

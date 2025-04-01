@@ -1,6 +1,29 @@
 // -----------------------------------------------------------------------------
 // This file contains the size variables used throughout the project.
 // -----------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+// Define the padding, margin, and gap sizes picked from the design system.
+//------------------------------------------------------------------------------
+
+/* Padding */
+$section-padding: clamp(5rem, 10vh, 7rem);
+/* Specific padding of certain section */
+$hero-padding: clamp(15rem, 15vh, 20rem);
+/* Specific padding of separate component */
+$card-body-padding: 5rem;
+
+/* Container sizes */
+$container-padding-inline: 1rem;
+$container-max-width: 60rem;
+/* Another max-width size */
+$container-max-width-wide: 75rem;
+
+/* Gap */
+$grid-gap: 1.5rem;
+$flex-group-gap: 1rem;
+
+/* Generic sizing system */
 $spacer: 1rem !default;
 $spacer-xs: $spacer * 0.25 !default;
 $spacer-sm: $spacer * 0.5 !default;

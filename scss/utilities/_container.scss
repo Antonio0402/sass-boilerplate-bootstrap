@@ -1,0 +1,14 @@
+@use '../abstracts/' as *;
+
+/* Need to interpolate the scss variable when assign it to css custom properties as CS can receive any kind of value even "$variable-name" as text */
+
+.container {
+  --padding: #{$container-padding-inline} * 2;
+  --max-width: #{$container-max-width};
+  width: min(100% - var(--padding), var(--max-width));
+  margin-inline: auto;
+}
+
+.container[data-type='wide'] {
+  --max-width: $container-max-width-wide;
+}

@@ -1,0 +1,9 @@
+@use '../abstracts/' as *;
+
+.card {
+  display: grid;
+  gap: 1rem;
+  padding: $card-body-padding;
+}
+
+/* Or checkout the composable card component from https://smolcss.dev/#smol-card-component */
